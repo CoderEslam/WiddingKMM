@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+
+    <color name="foshiadark">#c90253</color>
+    <color name="foshiadarklitealpha">#80C90253</color>
+    <color name="babykshmir">#fcd1da</color>
+    <color name="kashmirlight">#e68baa</color>
+    <color name="kashmirdark">#e14f76</color>
+    <color name="foshialight">#d01f55</color>
+    <color name="ripplecoloreffect">#4CAF50</color>
+    <color name="white">#fff</color>
+</resources>

@@ -1,0 +1,5 @@
+target 'iosAppWidding' do
+  use_frameworks!
+  platform :ios, '14.1'
+  pod 'sharedWidding', :path => '../sharedWidding'
+end
