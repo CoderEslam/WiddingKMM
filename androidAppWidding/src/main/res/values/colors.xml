@@ -3,7 +3,15 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="offwhite">#ececec</color>
+    <color name="bluelight">#2196F3</color>
+    <color name="bluedark">#0040FF</color>
+    <color name="gray">#555555</color>
 
+    <color name="circle_menu_center_button_color">#ffffff</color>
+    <color name="circle_menu_center_button_icon_color">#444444</color>
+    <color name="circle_menu_button_icon_color">#ffffff</color>
+    <color name="green">#85F436</color>
 
     <color name="foshiadark">#c90253</color>
     <color name="foshiadarklitealpha">#80C90253</color>
@@ -13,4 +21,5 @@
     <color name="foshialight">#d01f55</color>
     <color name="ripplecoloreffect">#4CAF50</color>
     <color name="white">#fff</color>
+    <color name="black">#000000</color>
 </resources>

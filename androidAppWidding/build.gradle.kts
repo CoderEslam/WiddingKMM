@@ -11,6 +11,8 @@ android {
         targetSdk = 32
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
+
     }
     buildTypes {
         getByName("release") {
@@ -41,5 +43,13 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.13.2")
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
+
+    implementation("com.vanniktech:emoji:0.8.0")
+    implementation("com.vanniktech:emoji-google:0.8.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.multidex:multidex:2.0.1")
+    implementation("com.karumi:dexter:6.2.3")
 
 }

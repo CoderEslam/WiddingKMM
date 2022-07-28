@@ -1,6 +1,5 @@
 package com.doubleclick.widdingkmm.android.Model
 
-import androidx.room.vo.Entity
 import java.io.Serializable
 
 /**
