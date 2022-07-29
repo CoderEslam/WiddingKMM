@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+//    id("com.google.gms.google-services")
 }
 
 version = "1.0"
@@ -59,4 +60,12 @@ android {
         minSdk = 21
         targetSdk = 32
     }
+}
+dependencies {
+    implementation("com.google.firebase:firebase-auth-ktx:21.0.6")
+    implementation("com.google.firebase:firebase-database-ktx:20.0.5")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.2.0")
+    implementation("com.google.firebase:firebase-storage-ktx:20.0.1")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.0.6")
+    implementation("com.google.firebase:firebase-inappmessaging-display-ktx:20.1.2")
 }

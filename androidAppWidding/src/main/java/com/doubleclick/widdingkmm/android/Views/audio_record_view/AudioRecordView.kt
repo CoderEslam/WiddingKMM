@@ -17,7 +17,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import com.doubleclick.widdingkmm.android.R
-import com.doubleclick.widdings.Views.audio_record_view.AttachmentOptionsListener
+import com.doubleclick.widdingkmm.android.Views.audio_record_view.AttachmentOptionsListener
 import com.vanniktech.emoji.EmojiPopup
 import java.text.SimpleDateFormat
 import java.util.*

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -42,6 +43,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.5.0")
 
     implementation("com.github.bumptech.glide:glide:4.13.2")
+//    implementation("androidx.room:room-compiler:2.4.2")
+//    implementation("androidx.room:room-ktx:2.4.2")
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
 
     implementation("com.vanniktech:emoji:0.8.0")
@@ -51,5 +55,35 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.multidex:multidex:2.0.1")
     implementation("com.karumi:dexter:6.2.3")
+
+    implementation("com.squareup.picasso:picasso:2.8")
+
+    implementation("com.google.firebase:firebase-database-ktx:20.0.5")
+    implementation("com.google.firebase:firebase-auth-ktx:21.0.6")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.2.0")
+    implementation("com.google.firebase:firebase-storage-ktx:20.0.1")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.0.6")
+    implementation("com.google.firebase:firebase-inappmessaging-display-ktx:20.1.2")
+
+
+    // ExoPlayer
+    api("com.google.android.exoplayer:exoplayer-core:2.17.1")
+    api("com.google.android.exoplayer:exoplayer-dash:2.17.1")
+    api("com.google.android.exoplayer:exoplayer-hls:2.17.1")
+    api("com.google.android.exoplayer:exoplayer-smoothstreaming:2.17.1")
+//    SiliCompressor
+    implementation("com.iceteck.silicompressorr:silicompressor:2.2.4")
+
+    // Kotlin components
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
+
+    implementation("io.github.imablanco:zoomy:1.0.0")
+
+    implementation("io.ak1.pix:piximagepicker:1.6.3")
+
+    implementation ("com.airbnb.android:lottie:3.4.0")
+
 
 }

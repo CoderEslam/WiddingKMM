@@ -12,9 +12,9 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.doubleclick.widdingkmm.android.Adapter.ChatListAdapter
 import com.doubleclick.widdingkmm.android.Model.User
 import com.doubleclick.widdingkmm.android.databinding.ActivityHomeBinding
+import com.doubleclick.widdings.Adapters.ChatListAdapter
 
 class HomeActivity : AppCompatActivity() {
 

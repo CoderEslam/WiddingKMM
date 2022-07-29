@@ -1,4 +1,4 @@
-package com.doubleclick.widdingkmm.android.Adapter
+package com.doubleclick.widdings.Adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.doubleclick.widdingkmm.android.Model.User
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.Views.CircleImageView
+
 
 /**
  * Created By Eslam Ghazy on 7/14/2022
@@ -30,11 +31,11 @@ class ChatListAdapter(private val users: List<User>?) :
     }
 
     override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {
-//        Glide.with(holder.itemView.context).load(users!![position].image)
-//            .into(holder.circleImageView);
-        holder.name.text = users!![position].name;
+        Glide.with(holder.itemView.context).load(users!![position].image)
+            .into(holder.circleImageView);
+        holder.name.text = users[position].name;
         holder.itemView.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "Done" + position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(holder.itemView.context, "" + position, Toast.LENGTH_SHORT).show();
 //            val intent = Intent(holder.itemView.context, ChatActivity::class.java)
 //            intent.putExtra("userId", users[position].id);
 //            holder.itemView.context.startActivity(intent)

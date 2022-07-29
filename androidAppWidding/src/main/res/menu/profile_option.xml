@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/editname"
+        android:title="@string/edit_name" />
+    <item
+        android:id="@+id/editProfile"
+        android:title="@string/edit_profile" />
+    <item
+        android:id="@+id/editcover"
+        android:title="@string/edit_cover" />
+    <item
+        android:id="@+id/editPhone"
+        android:title="@string/edit_phone" />
+    <item
+        android:id="@+id/description"
+        android:title="@string/edit_description" />
+    <item
+        android:id="@+id/location"
+        android:title="@string/location" />
+
+    <item
+        android:id="@+id/join"
+        android:title="Join us" />
+
+
+</menu>

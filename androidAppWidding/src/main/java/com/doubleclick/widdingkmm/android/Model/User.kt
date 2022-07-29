@@ -14,7 +14,7 @@ data class User(
     val image: String,
     val description: String,
     val cover: String
-) :Serializable{
+) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false
