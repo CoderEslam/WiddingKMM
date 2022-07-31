@@ -2,6 +2,7 @@ package com.doubleclick.widdingkmm.android.ViewHolder
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.ConnectivityManager
 import android.net.Uri
@@ -16,6 +17,7 @@ import com.doubleclick.widdingkmm.android.ViewHolder.BaseViewHolder
 import com.doubleclick.widdingkmm.android.Views.ExoMedia.listener.OnCompletionListener
 import com.doubleclick.widdingkmm.android.Views.ExoMedia.ui.widget.VideoView
 import com.doubleclick.widdingkmm.android.`interface`.OnMessageClick
+import com.doubleclick.widdingkmm.android.ui.ViewImageVideo.ListenRecord_VideoActivity
 import java.text.SimpleDateFormat
 
 /**
@@ -41,7 +43,7 @@ class VoiceViewHolder(itemView: View, onMessageClick: OnMessageClick, myId: Stri
                 seen.visibility = View.INVISIBLE
                 video.setVideoURI(Uri.parse(messageModel.message));
                 playVoice.setOnClickListener {
-                    if (isPlay) {
+                    /*if (isPlay) {
                         playVoice.setImageDrawable(
                             itemView.resources.getDrawable(R.drawable.pause)
                         )
@@ -54,7 +56,10 @@ class VoiceViewHolder(itemView: View, onMessageClick: OnMessageClick, myId: Stri
                         )
                         video.stopPlayback()
                         isPlay = true
-                    }
+                    }*/
+                    val intent = Intent(itemView.context, ListenRecord_VideoActivity::class.java);
+                    intent.putExtra("url", messageModel.message);
+                    itemView.context.startActivity(intent);
                 }
 
             } else {

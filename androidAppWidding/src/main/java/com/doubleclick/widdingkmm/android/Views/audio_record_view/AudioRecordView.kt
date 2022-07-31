@@ -18,7 +18,9 @@ import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.Views.audio_record_view.AttachmentOptionsListener
+import com.vanniktech.emoji.EmojiManager
 import com.vanniktech.emoji.EmojiPopup
+import com.vanniktech.emoji.google.GoogleEmojiProvider
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -154,7 +156,8 @@ class AudioRecordView {
             view.context,
             R.anim.jump_fast
         )
-        emojiPopup = getMessageView()?.let { EmojiPopup.Builder.fromRootView(view).build(it) }!!
+        EmojiManager.install(GoogleEmojiProvider())
+        emojiPopup = getMessageView().let { EmojiPopup.Builder.fromRootView(view).build(it) }!!
         setupRecording()
         setupAttachmentOptions()
     }

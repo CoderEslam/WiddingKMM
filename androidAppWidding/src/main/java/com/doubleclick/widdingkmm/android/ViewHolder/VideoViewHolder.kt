@@ -2,6 +2,7 @@ package com.doubleclick.widdingkmm.android.ViewHolder
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.media.MediaPlayer
 import android.net.ConnectivityManager
 import android.net.Uri
@@ -15,6 +16,7 @@ import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.ViewHolder.BaseViewHolder
 import com.doubleclick.widdingkmm.android.Views.ExoMedia.listener.OnPreparedListener
 import com.doubleclick.widdingkmm.android.`interface`.OnMessageClick
+import com.doubleclick.widdingkmm.android.ui.ViewImageVideo.ListenRecord_VideoActivity
 import java.text.SimpleDateFormat
 
 /**
@@ -28,6 +30,7 @@ class VideoViewHolder(itemView: View, onMessageClick: OnMessageClick, myId: Stri
     private val seen: ImageView
     private val myId: String
     private val time: TextView
+    private val playVideo: ImageView
 
     @SuppressLint("UseCompatLoadingForDrawables", "SimpleDateFormat")
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -46,6 +49,11 @@ class VideoViewHolder(itemView: View, onMessageClick: OnMessageClick, myId: Stri
             }
         } else {
             itemView.visibility = View.GONE
+        }
+        playVideo.setOnClickListener {
+            val intent = Intent(itemView.context, ListenRecord_VideoActivity::class.java);
+            intent.putExtra("url", messageModel.message);
+            itemView.context.startActivity(intent);
         }
         options.setOnClickListener { v: View? ->
             val popupMenu =
@@ -89,6 +97,7 @@ class VideoViewHolder(itemView: View, onMessageClick: OnMessageClick, myId: Stri
         options = itemView.findViewById(R.id.options)
         seen = itemView.findViewById(R.id.seen)
         time = itemView.findViewById(R.id.time)
+        playVideo = itemView.findViewById(R.id.playVideo);
     }
 
     private fun isNetworkConnected(context: Context): Boolean {

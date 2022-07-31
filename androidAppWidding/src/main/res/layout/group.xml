@@ -373,17 +373,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription,UnusedAttribute,UseAppTint" />
 
-            <ImageView
-                android:id="@+id/QRCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/download"
-                app:layout_constraintBottom_toBottomOf="@+id/option"
-                app:layout_constraintEnd_toStartOf="@+id/option"
-                app:layout_constraintTop_toTopOf="@+id/option" />
 
             <ImageView
                 android:id="@+id/option"

@@ -10,6 +10,12 @@
         android:theme="@style/AppTheme"
         tools:targetApi="s">
         <activity
+            android:name=".ListenRecord_VideoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewImageActivity"
+            android:exported="false" />
+        <activity
             android:name=".CommentActivity"
             android:exported="false" />
         <activity

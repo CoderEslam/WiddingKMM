@@ -9,4 +9,3 @@ pluginManagement {
 rootProject.name = "WiddingKMM"
 include(":androidAppWidding")
 include(":sharedWidding")
-include(":kotlinmultiplatformsharedmoduleSocialTextView")

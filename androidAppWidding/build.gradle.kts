@@ -49,6 +49,7 @@ dependencies {
 //    implementation("androidx.room:room-compiler:2.4.2")
 //    implementation("androidx.room:room-ktx:2.4.2")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.google.android.gms:play-services-location:20.0.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.13.2")
 
     implementation("com.vanniktech:emoji:0.8.0")
@@ -86,7 +87,7 @@ dependencies {
 
     implementation("io.ak1.pix:piximagepicker:1.6.3")
 
-    implementation ("com.airbnb.android:lottie:3.4.0")
+    implementation("com.airbnb.android:lottie:3.4.0")
 
 
 }
