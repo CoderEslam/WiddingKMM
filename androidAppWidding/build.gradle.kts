@@ -2,6 +2,9 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("com.google.gms.google-services")
+    id("kotlin-android-extensions")
+    id("androidx.navigation.safeargs.kotlin")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")// دي صح
 }
 
 android {

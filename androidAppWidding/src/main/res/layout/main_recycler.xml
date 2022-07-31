@@ -19,24 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
-            <ImageView
-                android:id="@+id/openDrawer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/horizontal_line"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
             <EditText
                 android:id="@+id/search"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:autoSizeTextType="uniform"
                 android:background="@drawable/bg_white"
                 android:drawableStart="@drawable/search"
                 android:hint="@string/search_here"
@@ -48,7 +36,7 @@
                 android:textColorHint="@color/gray"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/animationView"
-                app:layout_constraintStart_toEndOf="@+id/openDrawer"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.airbnb.lottie.LottieAnimationView

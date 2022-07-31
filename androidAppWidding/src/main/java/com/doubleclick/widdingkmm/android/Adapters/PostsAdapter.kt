@@ -11,12 +11,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.doubleclick.widdingkmm.android.CommentActivity
+import com.doubleclick.widdingkmm.android.HashtagsActivity
 import com.doubleclick.widdingkmm.android.Model.FbReactions.Reactions
 import com.doubleclick.widdingkmm.android.Model.PostModelData
 import com.doubleclick.widdingkmm.android.Model.Reaction
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.Views.CircleImageView
 import com.doubleclick.widdingkmm.android.Views.socialtextview.SocialTextView
+import com.doubleclick.widdingkmm.android.ui.Chat.ChatActivity
 
 
 /**
@@ -70,27 +73,27 @@ class PostsAdapter(
 
         }
         holder.comment.setOnClickListener {
-//            val intent = Intent(holder.itemView.context, CommentActivity::class.java)
-//            holder.itemView.context.startActivity(intent)
+            val intent = Intent(holder.itemView.context, CommentActivity::class.java)
+            holder.itemView.context.startActivity(intent)
         }
         holder.share.setOnClickListener {
-//            val intent = Intent(holder.itemView.context, ChatActivity::class.java);
-//            intent.putExtra("userId", postModelData[position].postModel.userId);
-//            intent.putExtra("postData", postModelData[position])
-//            holder.itemView.context.startActivity(intent)
+            val intent = Intent(holder.itemView.context, ChatActivity::class.java);
+            intent.putExtra("userId", postModelData[position].postModel.userId);
+            intent.putExtra("postData", postModelData[position])
+            holder.itemView.context.startActivity(intent)
         }
         holder.chatLayout.setOnClickListener {
-//            val intent = Intent(holder.itemView.context, ChatActivity::class.java)
-//            intent.putExtra("userId", postModelData[position].user.id);
-//            holder.itemView.context.startActivity(intent)
+            val intent = Intent(holder.itemView.context, ChatActivity::class.java)
+            intent.putExtra("userId", postModelData[position].user.id);
+            holder.itemView.context.startActivity(intent)
         }
 
         holder.caption.setOnLinkClickListener(object : SocialTextView.OnLinkClickListener {
             override fun onLinkClicked(linkType: Int, matchedText: String?) {
                 if (linkType == 1) {
-//                    val intent = Intent(holder.itemView.context, HashtagsActivity::class.java);
-//                    intent.putExtra("hashtag", matchedText.toString());
-//                    holder.itemView.context.startActivity(intent);
+                    val intent = Intent(holder.itemView.context, HashtagsActivity::class.java);
+                    intent.putExtra("hashtag", matchedText.toString());
+                    holder.itemView.context.startActivity(intent);
                 }
             }
 

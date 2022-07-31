@@ -1,0 +1,15 @@
+package com.doubleclick.widdingkmm.android
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_hashtags.*
+
+class HashtagsActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_hashtags)
+
+        hashtag.text = intent.getStringExtra("hashtag").toString();
+
+    }
+}

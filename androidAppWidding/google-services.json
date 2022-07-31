@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "986591011854",
+    "firebase_url": "https://widdingkmm-default-rtdb.firebaseio.com",
+    "project_id": "widdingkmm",
+    "storage_bucket": "widdingkmm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986591011854:android:0072adaa762749d32c485f",
+        "android_client_info": {
+          "package_name": "com.doubleclick.widdingkmm.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986591011854-iv14noajkoe74f3toh0eq1lid2c55p87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwHQfItxFStI-E3Ek93PZiVlJackOZe58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986591011854-iv14noajkoe74f3toh0eq1lid2c55p87.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

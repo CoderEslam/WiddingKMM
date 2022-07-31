@@ -5,10 +5,35 @@
 
     <application
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:dataExtractionRules="@xml/data_extraction_rules"
         tools:targetApi="s">
+        <activity
+            android:name=".CommentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HashtagsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Profile.CreatePostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Profile.ImagesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents" />
+        <activity
+            android:name=".ui.Profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Chat.ChatListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Chat.ChatActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
