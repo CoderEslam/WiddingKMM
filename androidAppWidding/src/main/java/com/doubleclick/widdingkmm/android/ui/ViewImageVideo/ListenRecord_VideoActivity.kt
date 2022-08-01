@@ -3,6 +3,7 @@ package com.doubleclick.widdingkmm.android.ui.ViewImageVideo
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.Views.ExoMedia.listener.OnPreparedListener
 import com.doubleclick.widdingkmm.android.Views.ExoMedia.ui.widget.VideoView
@@ -15,6 +16,8 @@ class ListenRecord_VideoActivity : AppCompatActivity(), OnPreparedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listen_record_video)
         video = findViewById(R.id.video);
+        Log.e("DATA", intent.getStringExtra("url").toString());
+        video.setOnPreparedListener(this)
         video.setVideoURI(Uri.parse(intent.getStringExtra("url").toString()))
     }
 

@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.webkit.PermissionRequest
 import androidx.multidex.MultiDex
+import com.google.firebase.database.FirebaseDatabase
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -20,6 +21,7 @@ class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         EmojiManager.install(GoogleEmojiProvider())
         MultiDex.install(this)
         Dexter.withContext(this).withPermissions(

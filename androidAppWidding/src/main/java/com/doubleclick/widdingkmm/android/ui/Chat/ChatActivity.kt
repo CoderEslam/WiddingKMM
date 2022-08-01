@@ -100,6 +100,7 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
             Client.getClient("https://fcm.googleapis.com/")!!.create(APIService::class.java)
         client = LocationServices.getFusedLocationProviderClient(this)
         reference = FirebaseDatabase.getInstance().reference
+        reference.keepSynced(true)
         myId = FirebaseAuth.getInstance().currentUser!!.uid.toString()
         userId = intent.getStringExtra("userId").toString()
         reference.child(Constants.DBCHATS).child(myId).child(userId).addChildEventListener(this)
@@ -528,6 +529,7 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
         val gson = Gson()
         val json = Gson().toJson(snapshot.value)
         val data = gson.fromJson(json, MessageModel::class.java)
+        Log.e("DATAMODEL", data.toString());
         val messageModel = MessageModel(
             data.id,
             data.message,
@@ -556,7 +558,7 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
                 * it's see what message is deleted and updated it in database and in ArrayList
                 * and if message sent and deleted before stored in database -> exception
                 * */
-                if (messageModel.sender == myId && !messageModel.seen && !messageModel.message.contains(
+                if (messageModel.sender == myId /*&& !messageModel.seen*/ && !messageModel.message.contains(
                         "@$@this@message@deleted"
                     )
                 ) {
