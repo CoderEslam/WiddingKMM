@@ -15,12 +15,23 @@ class ChatListViewModel : ViewModel(), IChatList {
 
     val mutableLiveData: MutableLiveData<List<User>> = MutableLiveData();
 
+    val mutableLiveDataUserAdd: MutableLiveData<User> = MutableLiveData();
+
+
     fun getChatList(): LiveData<List<User>> {
         ChatListRepo(this).getChatList()
         return mutableLiveData
     }
 
+    fun getUserAdd(): LiveData<User> {
+        return mutableLiveDataUserAdd
+    }
+
     override fun getChatList(chatList: List<User>) {
         mutableLiveData.value = chatList;
+    }
+
+    override fun getUserAdd(user: User) {
+        mutableLiveDataUserAdd.value = user
     }
 }

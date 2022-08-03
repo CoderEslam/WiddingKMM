@@ -1,0 +1,30 @@
+CREATE TABLE UserEntity (
+id TEXT NOT NULL PRIMARY KEY,
+name TEXT NOT NULL,
+phone TEXT NOT NULL,
+email TEXT NOT NULL,
+token TEXT NOT NULL,
+image TEXT NOT NULL,
+description TEXT NOT NULL,
+cover TEXT NOT NULL
+);
+
+getAllUsers:
+SELECT *
+FROM UserEntity;
+
+
+getUserByIds:
+SELECT *
+FROM UserEntity
+WHERE id=:id;
+
+
+insertUserById:
+INSERT OR REPLACE
+INTO  UserEntity
+VALUES (?,?,?,?,?,?,?,?);
+
+deleletUserBiId:
+DELETE FROM UserEntity
+WHERE id=:id;

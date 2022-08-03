@@ -32,18 +32,18 @@ class ChatListRepo(private var iChatList: IChatList) : BaseRepository() {
                                     val gson = Gson()
                                     val json = gson.toJson(snapshotUser.value)
                                     val user = gson.fromJson(json, User::class.java) as User
-                                    list.add(
-                                        User(
-                                            user.id,
-                                            user.name,
-                                            user.phone,
-                                            user.email,
-                                            user.token,
-                                            user.image,
-                                            user.description,
-                                            user.cover
-                                        )
-                                    );
+                                    val u = User(
+                                        user.id,
+                                        user.name,
+                                        user.phone?:"",
+                                        user.email,
+                                        user.token,
+                                        user.image?:"",
+                                        user.description?:"",
+                                        user.cover?:""
+                                    )
+                                    list.add(u);
+                                    iChatList.getUserAdd(u);
                                     iChatList.getChatList(list)
                                 }
 

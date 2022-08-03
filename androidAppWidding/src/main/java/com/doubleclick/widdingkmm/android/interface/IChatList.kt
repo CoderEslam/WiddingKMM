@@ -8,4 +8,6 @@ import com.doubleclick.widdingkmm.android.Model.User
 interface IChatList {
 
     fun getChatList(chatList: List<User>)
+    fun getUserAdd(user: User)
+
 }
