@@ -1,5 +1,6 @@
 package com.doubleclick.widdingkmm.android
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -12,15 +13,23 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
+import com.bumptech.glide.Glide
 import com.doubleclick.widdingkmm.android.Model.User
+import com.doubleclick.widdingkmm.android.ViewModel.UserViewModel
+import com.doubleclick.widdingkmm.android.Views.CircleImageView
 import com.doubleclick.widdingkmm.android.databinding.ActivityHomeBinding
+import com.doubleclick.widdingkmm.android.ui.Chat.ChatListActivity
+import com.doubleclick.widdingkmm.android.ui.Profile.ProfileActivity
 import com.doubleclick.widdings.Adapters.ChatListAdapter
 import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
+import kotlinx.android.synthetic.main.app_bar_home.*
 
 var options = Options();
 
@@ -29,15 +38,22 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navController: NavController
+    private lateinit var myImage: CircleImageView
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var animationView: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        animationView = findViewById(R.id.animationView)
+        myImage = findViewById(R.id.myImage);
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java];
         setSupportActionBar(binding.appBarHome.toolbar)
-
+        userViewModel.getUserDate().observe(this) {
+            Glide.with(this).load(it.image).into(myImage);
+        }
         binding.appBarHome.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -96,7 +112,13 @@ class HomeActivity : AppCompatActivity() {
             preSelectedUrls =
                 ArrayList<Uri>()                          //Pre selected Image Urls
         }
+        myImage.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java));
+        }
 
+        animationView.setOnClickListener {
+            startActivity(Intent(this, ChatListActivity::class.java));
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

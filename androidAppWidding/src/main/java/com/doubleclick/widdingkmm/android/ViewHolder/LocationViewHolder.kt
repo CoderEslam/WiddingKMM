@@ -47,7 +47,7 @@ class LocationViewHolder(itemView: View, onMessageClick: OnMessageClick, myId: S
             seen.visibility = View.INVISIBLE
         } else {
             seen.setImageDrawable(
-                if (messageModel.seen) itemView.context.resources.getDrawable(R.drawable.done_all) else itemView.context.resources.getDrawable(
+                if (messageModel.seen=="true") itemView.context.resources.getDrawable(R.drawable.done_all) else itemView.context.resources.getDrawable(
                     R.drawable.done
                 )
             )

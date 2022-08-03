@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.doubleclick.databasekmm.android.MessageDatabase
 import com.doubleclick.widdingkmm.android.Model.*
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.ViewModel.UserViewModel
@@ -37,7 +38,6 @@ import com.doubleclick.widdingkmm.android.Views.audio_record_view.RecordingListe
 import com.doubleclick.widdingkmm.android.`interface`.APIService
 import com.doubleclick.widdingkmm.android.`interface`.OnMessageClick
 import com.doubleclick.widdings.Adapters.BaseMessageAdapter
-import com.google.android.gms.common.api.Api
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -50,11 +50,14 @@ import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
 import com.google.gson.Gson
 import com.iceteck.silicompressorr.SiliCompressor
+import com.squareup.sqldelight.android.AndroidSqliteDriver
 import kotlinx.android.synthetic.main.record_view.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import persondata.MessagesEntity
+import persondata.MessagesEntityQueries
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -89,6 +92,9 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
     private val REQUEST_CODE = 100;
     private lateinit var storageReference: StorageReference
     lateinit var uploadTask: StorageTask<UploadTask.TaskSnapshot>
+    private lateinit var androidSqlDriver: AndroidSqliteDriver
+    private lateinit var queries: MessagesEntityQueries;
+
 //    private lateinit var chatListViewModelDatabase: ChatListViewModelDatabase;
 
 
@@ -110,6 +116,13 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
         chatRecycler = containerView.findViewById(R.id.chatRecycler);
         username = containerView.findViewById(R.id.username);
         profile_image = containerView.findViewById(R.id.profile_image);
+        androidSqlDriver = AndroidSqliteDriver(
+            schema = MessageDatabase.Schema,
+            context = this@ChatActivity,
+            name = "message.db"
+        )
+        queries = MessageDatabase(androidSqlDriver).messagesEntityQueries
+
 //        chatListViewModelDatabase = ViewModelProvider(this)[ChatListViewModelDatabase::class.java]
 //        messageModelsList.addAll(chatListViewModelDatabase.getListData(myId, userId));
         audioRecordView.setRecordingListener(this)
@@ -144,8 +157,9 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
                 map["message"] = postData!!.postModel.images
                 map["type"] = Constants.SHARED_POST
                 map["id"] = postData!!.postModel.id
-                map["time"] = Date().time;
+                map["time"] = Date().time.toString();
                 map["uri"] = ""
+                map["seen"] = "false"
                 map["reply"] = postData!!.postModel.caption
                 upload(postData!!.postModel.id, map);
                 makeChatList()
@@ -194,7 +208,8 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
                         map["message"] = url
                         map["type"] = fileType.toString()
                         map["id"] = id
-                        map["time"] = time
+                        map["seen"] = "false"
+                        map["time"] = time.toString()
                         map["uri"] = uri.toString()
                         if (!reply.equals("")) {
                             map["reply"] = reply.toString()
@@ -219,6 +234,8 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
         } else {
             Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
         }
+
+
     }
 
 
@@ -334,8 +351,8 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
                             map["message"] = url
                             map["type"] = "voice"
                             map["id"] = id
-                            map["time"] = time
-                            map["seen"] = false
+                            map["time"] = time.toString()
+                            map["seen"] = "false"
                             map["uri"] = audioPath;
                             if (!reply.equals("")) {
                                 map["reply"] = reply.toString()
@@ -428,9 +445,9 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
         map["message"] = text
         map["type"] = type
         map["receiver"] = userId // Id of Friend
-        map["time"] = time
+        map["time"] = time.toString()
         map["id"] = id
-        map["seen"] = false
+        map["seen"] = "false"
 //        map["reply"] = reply.toString()
         upload(id, map);
         audioRecordView.getMessageView().setText("")
@@ -541,11 +558,25 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
             data.reply,
             data.uri
         )
+        queries.insertMessageById(
+            data.id,
+            data.message,
+            data.type,
+            data.sender,
+            data.receiver,
+            data.time.toString(),
+            "true",
+            data.reply,
+            data.uri
+        )
+        val itemsBefore = queries.getAllMessage().executeAsList()
+        messageModelsList.addAll(queries.getAllMessage().executeAsList())
+        Log.e("DATAMESSAGE", itemsBefore.toString());
         baseMessageAdapter.notifyDataSetChanged()
 //        chatListViewModelDatabase.insert(
 //            messageModel
 //        )
-        if (!data.seen && data.sender != myId && data.receiver == userId) {
+        if (data.seen == "false" && data.sender != myId && data.receiver == userId) {
 //            chatListViewModelDatabase.insert(
 //                messageModel
 //            )
@@ -652,4 +683,23 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
 
     }
 
+    private fun <E> MutableList<E>.addAll(elements: List<MessagesEntity>) {
+        for (element in elements) {
+            messageModelsList.add(
+                MessageModel(
+                    element.id,
+                    element.message,
+                    element.type,
+                    element.sender,
+                    element.receiver_,
+                    element.time,
+                    element.seen,
+                    element.reply,
+                    element.uri
+                )
+            )
+        }
+    }
 }
+
+

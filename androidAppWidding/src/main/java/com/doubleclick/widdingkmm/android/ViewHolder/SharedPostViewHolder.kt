@@ -35,12 +35,12 @@ class SharedPostViewHolder(
     fun sharedPost(messageModel: MessageModel, postion: Int) {
         socialTextView.setLinkText(messageModel.reply)
         imagePost.adapter = ImagesAdapter(activity, messageModel.getListImages())
-        textTime.text = SimpleDateFormat("M/d/yy, h:mm a").format(messageModel.time).toString()
+//        textTime.text = SimpleDateFormat("M/d/yy, h:mm a").format(messageModel.time).toString()
         if (messageModel.receiver == myId) {
 //            seen.visibility = View.INVISIBLE
         } else {
             seen.setImageDrawable(
-                if (messageModel.seen) itemView.context.resources.getDrawable(R.drawable.done_all) else itemView.context.resources.getDrawable(
+                if (messageModel.seen=="true") itemView.context.resources.getDrawable(R.drawable.done_all) else itemView.context.resources.getDrawable(
                     R.drawable.done
                 )
             )

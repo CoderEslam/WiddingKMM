@@ -27,14 +27,12 @@ import com.doubleclick.widdingkmm.android.ui.Profile.ProfileActivity
 import com.doubleclick.widdings.Adapters.NavParentApadter
 import com.doubleclick.widdings.Adapters.PostsAdapter
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.app_bar_home.*
 
 class HomeFragment : Fragment() {
 
 
     private lateinit var mainRecycler: RecyclerView
-    private lateinit var myImage: CircleImageView
-    private lateinit var animationView: LottieAnimationView
-    private lateinit var userViewModel: UserViewModel
     private lateinit var postsViewModel: PostsViewModel;
     private var advertisements: ArrayList<SlideModel> = ArrayList();
     private var navModel: ArrayList<NavModel> = ArrayList();
@@ -55,13 +53,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainRecycler = view.findViewById(R.id.mainRecycler);
-        animationView = view.findViewById(R.id.animationView)
-        myImage = view.findViewById(R.id.myImage);
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java];
+
         postsViewModel = ViewModelProvider(this)[PostsViewModel::class.java];
-        userViewModel.getUserDate().observe(viewLifecycleOwner) {
-            Glide.with(this).load(it.image).into(myImage);
-        }
+
         postsViewModel.getLiveListData().observe(viewLifecycleOwner) {
             mainRecycler.adapter = PostsAdapter(requireActivity(), it);
             Log.e("POSTDATAMODEL", it.toString());
@@ -106,13 +100,7 @@ class HomeFragment : Fragment() {
         )
         //==========================================================================================
 
-        myImage.setOnClickListener {
-            startActivity(Intent(requireActivity(), ProfileActivity::class.java));
-        }
 
-        animationView.setOnClickListener {
-            startActivity(Intent(requireActivity(), ChatListActivity::class.java));
-        }
     }
 
 }

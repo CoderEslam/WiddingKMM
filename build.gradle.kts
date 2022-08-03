@@ -10,6 +10,9 @@ buildscript {
         classpath("com.google.gms:google-services:4.3.13")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.5.0")
         classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+
+        // SQLdelight
+        classpath("com.squareup.sqldelight:gradle-plugin:1.5.3")
     }
 }
 

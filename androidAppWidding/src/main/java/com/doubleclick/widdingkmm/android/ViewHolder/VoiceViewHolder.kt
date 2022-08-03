@@ -37,7 +37,7 @@ class VoiceViewHolder(itemView: View, onMessageClick: OnMessageClick, myId: Stri
     @SuppressLint("UseCompatLoadingForDrawables", "SimpleDateFormat")
     @RequiresApi(api = Build.VERSION_CODES.M)
     fun Play(messageModel: MessageModel, position: Int) {
-        time.text = SimpleDateFormat("M/d/yy, h:mm a").format(messageModel.time).toString()
+//        time.text = SimpleDateFormat("M/d/yy, h:mm a").format(messageModel.time.toLong()).toString()
         if (messageModel.message != "") {
             if (messageModel.receiver == myId) {
                 seen.visibility = View.INVISIBLE
@@ -64,7 +64,7 @@ class VoiceViewHolder(itemView: View, onMessageClick: OnMessageClick, myId: Stri
 
             } else {
                 seen.setImageDrawable(
-                    if (messageModel.seen) itemView.context.resources.getDrawable(
+                    if (messageModel.seen == "true") itemView.context.resources.getDrawable(
                         R.drawable.done_all
                     ) else itemView.context.resources.getDrawable(R.drawable.done)
                 )

@@ -6,15 +6,15 @@ import java.io.Serializable
 /**
  * Created By Eslam Ghazy on 7/15/2022
  */
-open class MessageModel :  Serializable {
+open class MessageModel : Serializable {
 
     var id: String = ""
     var message: String = ""
     var type: String = ""
     var sender: String = ""
     var receiver: String = ""
-    var time: Long = 0
-    var seen: Boolean = false
+    var time: String = ""
+    var seen: String = ""
     var reply: String = ""
     var uri: String = ""
 
@@ -25,8 +25,8 @@ open class MessageModel :  Serializable {
         type = parcel.readString().toString()
         sender = parcel.readString().toString()
         receiver = parcel.readString().toString()
-        time = parcel.readLong()
-        seen = parcel.readByte() != 0.toByte()
+        time = parcel.readString().toString()
+        seen = parcel.readString().toString()
         reply = parcel.readString().toString()
         uri = parcel.readString().toString()
     }
@@ -44,8 +44,8 @@ open class MessageModel :  Serializable {
         type: String,
         sender: String,
         receiver: String,
-        time: Long,
-        seen: Boolean,
+        time: String,
+        seen: String,
         reply: String,
         uri: String,
     ) {

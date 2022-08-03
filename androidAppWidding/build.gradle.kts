@@ -5,6 +5,8 @@ plugins {
     id("kotlin-android-extensions")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")// دي صح
+    // SQLdelight
+    id("com.squareup.sqldelight")
 }
 
 android {
@@ -89,5 +91,17 @@ dependencies {
 
     implementation("com.airbnb.android:lottie:3.4.0")
 
+    //SQLdelight
+    implementation("com.squareup.sqldelight:android-driver:1.5.3")
+    implementation("com.squareup.sqldelight:coroutines-extensions-jvm:1.5.3")
+
+
+}
+
+sqldelight {
+
+    database("MessageDatabase") {
+        packageName = "com.doubleclick.databasekmm.android"
+    }
 
 }

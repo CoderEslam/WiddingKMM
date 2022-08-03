@@ -1,0 +1,45 @@
+-- https://play.kotlinlang.org/hands-on/Networking%20and%20Data%20Storage%20with%20Kotlin%20Multiplatfrom%20Mobile/05_Configuring_SQLDelight_an_implementing_cache
+CREATE TABLE MessagesEntity (
+id TEXT NOT NULL PRIMARY KEY,
+message TEXT NOT NULL,
+type TEXT NOT NULL,
+sender TEXT NOT NULL,
+receiver TEXT NOT NULL,
+time TEXT NOT NULL ,
+seen TEXT  NOT NULL ,
+reply TEXT NOT NULL,
+uri TEXT NOT NULL
+);
+
+-- to get all record in database
+getAllMessage:
+SELECT *
+FROM MessagesEntity;
+
+
+getChatByIds:
+SELECT *
+FROM MessagesEntity
+WHERE ((sender = :myId AND receiver =:friendId) OR (sender = :friendId AND receiver =:myId));
+
+
+insertMessageById:
+INSERT OR REPLACE
+INTO  MessagesEntity
+VALUES (?,?,?,?,?,?,?,?,?);
+
+
+deleletForMeById:
+DELETE FROM MessagesEntity
+WHERE id=:id;
+
+
+deleletAll:
+DELETE FROM MessagesEntity;
+
+
+
+
+
+
+
