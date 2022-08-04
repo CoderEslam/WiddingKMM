@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.L
 import com.bumptech.glide.Glide
 import com.doubleclick.databasekmm.android.MessageDatabase
 import com.doubleclick.widdingkmm.android.Model.*
@@ -51,11 +52,11 @@ import com.google.firebase.storage.UploadTask
 import com.google.gson.Gson
 import com.iceteck.silicompressorr.SiliCompressor
 import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.android.synthetic.main.record_view.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
 import persondata.MessagesEntity
 import persondata.MessagesEntityQueries
 import retrofit2.Call
@@ -98,6 +99,7 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
 //    private lateinit var chatListViewModelDatabase: ChatListViewModelDatabase;
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -121,9 +123,16 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
             context = this@ChatActivity,
             name = "message.db"
         )
-        queries = MessageDatabase(androidSqlDriver).messagesEntityQueries
 
-//        chatListViewModelDatabase = ViewModelProvider(this)[ChatListViewModelDatabase::class.java]
+        GlobalScope.launch(Dispatchers.IO) {
+            queries = MessageDatabase(androidSqlDriver).messagesEntityQueries
+            val itemsBefore: List<MessagesEntity> = queries.getAllMessage().executeAsList()
+            withContext(Dispatchers.Main) {
+                messageModelsList.addAll(itemsBefore)
+
+            }
+
+        }
 //        messageModelsList.addAll(chatListViewModelDatabase.getListData(myId, userId));
         audioRecordView.setRecordingListener(this)
         audioRecordView.getMessageView()!!.requestFocus()
@@ -142,12 +151,6 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
 //        chatListViewModelDatabase.getAllData().observe(this@ChatActivity) {
 //            Log.e("CHATDATA", it.toString());
 //        }
-
-        GlobalScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-
-            }
-        }
         try {
             postData = intent.getSerializableExtra("postData") as PostModelData?
             if (postData != null) {
@@ -546,7 +549,6 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
         val gson = Gson()
         val json = Gson().toJson(snapshot.value)
         val data = gson.fromJson(json, MessageModel::class.java)
-        Log.e("DATAMODEL", data.toString());
         val messageModel = MessageModel(
             data.id,
             data.message,
@@ -558,28 +560,21 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
             data.reply,
             data.uri
         )
-        queries.insertMessageById(
-            data.id,
-            data.message,
-            data.type,
-            data.sender,
-            data.receiver,
-            data.time.toString(),
-            "true",
-            data.reply,
-            data.uri
-        )
-        val itemsBefore = queries.getAllMessage().executeAsList()
-        messageModelsList.addAll(queries.getAllMessage().executeAsList())
-        Log.e("DATAMESSAGE", itemsBefore.toString());
+
         baseMessageAdapter.notifyDataSetChanged()
-//        chatListViewModelDatabase.insert(
-//            messageModel
-//        )
+
         if (data.seen == "false" && data.sender != myId && data.receiver == userId) {
-//            chatListViewModelDatabase.insert(
-//                messageModel
-//            )
+            queries.insertMessageById(
+                messageModel.id,
+                messageModel.message,
+                messageModel.type,
+                messageModel.sender,
+                messageModel.receiver,
+                messageModel.time.toString(),
+                messageModel.seen,
+                messageModel.reply,
+                messageModel.uri
+            )
         }
 
         if (!messageModel.message.contains("@$@this@message@deleted")) {
@@ -589,7 +584,7 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
                 * it's see what message is deleted and updated it in database and in ArrayList
                 * and if message sent and deleted before stored in database -> exception
                 * */
-                if (messageModel.sender == myId /*&& !messageModel.seen*/ && !messageModel.message.contains(
+                if (messageModel.sender == myId && messageModel.seen == "false" && !messageModel.message.contains(
                         "@$@this@message@deleted"
                     )
                 ) {
@@ -624,7 +619,17 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
                 val c = messageModel;
                 c!!.message = "this message deleted";
                 c.type = "text"
-//                chatListViewModelDatabase.update(c!!)
+                queries.insertMessageById(
+                    c.id,
+                    c.message,
+                    c.type,
+                    c.sender,
+                    c.receiver,
+                    c.time.toString(),
+                    c.seen,
+                    c.reply,
+                    c.uri
+                )
                 messageModelsList[messageModelsList.indexOf(c)] = c
                 baseMessageAdapter.notifyItemChanged(messageModelsList.indexOf(c))
                 baseMessageAdapter.notifyDataSetChanged()
@@ -642,37 +647,34 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
         val gson = Gson()
         val json = gson.toJson(snapshot.value)
         val data = gson.fromJson(json, MessageModel::class.java)
-        val messageModel = MessageModel(
+        queries.insertMessageById(
             data.id,
             data.message,
             data.type,
             data.sender,
             data.receiver,
-            data.time,
+            data.time.toString(),
             data.seen,
             data.reply,
             data.uri
         )
-//        chatListViewModelDatabase.update(messageModel!!)
-
     }
 
     override fun onChildRemoved(snapshot: DataSnapshot) {
         val gson = Gson()
         val json = gson.toJson(snapshot.value)
         val data = gson.fromJson(json, MessageModel::class.java)
-        val messageModel = MessageModel(
+        queries.insertMessageById(
             data.id,
             data.message,
             data.type,
             data.sender,
             data.receiver,
-            data.time,
+            data.time.toString(),
             data.seen,
             data.reply,
             data.uri
         )
-//        chatListViewModelDatabase.delete(messageModel!!)
     }
 
     override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {

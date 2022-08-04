@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.doubleclick.widdingkmm.android.Model.User
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.Views.CircleImageView
+import com.doubleclick.widdingkmm.android.ui.Chat.ChatActivity
 
 
 /**
@@ -35,10 +36,9 @@ class ChatListAdapter(private val users: List<User>?) :
             .into(holder.circleImageView);
         holder.name.text = users[position].name;
         holder.itemView.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "" + position, Toast.LENGTH_SHORT).show();
-//            val intent = Intent(holder.itemView.context, ChatActivity::class.java)
-//            intent.putExtra("userId", users[position].id);
-//            holder.itemView.context.startActivity(intent)
+            val intent = Intent(holder.itemView.context, ChatActivity::class.java)
+            intent.putExtra("userId", users[position].id);
+            holder.itemView.context.startActivity(intent)
         }
     }
 

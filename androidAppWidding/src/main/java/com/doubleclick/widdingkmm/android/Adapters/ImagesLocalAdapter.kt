@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ablanco.zoomy.Zoomy
 import com.bumptech.glide.Glide
 import com.doubleclick.widdingkmm.android.R
+import com.github.chrisbanes.photoview.PhotoView
 
 /**
  * Created By Eslam Ghazy on 7/14/2022
@@ -22,7 +23,7 @@ class ImagesLocalAdapter(val activity: Activity, val urls: List<String>) :
     RecyclerView.Adapter<ImagesLocalAdapter.ImageViewHolder>() {
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageRequest: ImageView = itemView.findViewById(R.id.imageRequest);
+        val imageRequest: ImageView = itemView.findViewById(R.id.imagePost);
         val video: VideoView = itemView.findViewById(R.id.video);
         var mediaController: MediaController = MediaController(itemView.context);
         fun getFileExtension(uri: Uri, context: Context): String? {

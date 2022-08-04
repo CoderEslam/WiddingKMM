@@ -1,0 +1,23 @@
+CREATE TABLE ChatList (
+id TEXT NOT NULL PRIMARY KEY ,
+time INTEGER NOT NULL,
+FOREIGN KEY (id) REFERENCES UserEntity(id) ON DELETE CASCADE
+);
+
+
+
+getAllChatList:
+SELECT *
+FROM UserEntity INNER JOIN ChatList ON ChatList.id = UserEntity.id ORDER BY ChatList.time ASC;
+
+
+getAll:
+SELECT *
+FROM ChatList ;
+
+
+
+insertUserById:
+INSERT OR REPLACE
+INTO  ChatList
+VALUES (?,?);

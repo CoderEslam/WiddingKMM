@@ -95,6 +95,9 @@ dependencies {
     implementation("com.squareup.sqldelight:android-driver:1.5.3")
     implementation("com.squareup.sqldelight:coroutines-extensions-jvm:1.5.3")
 
+    // photoView
+    implementation("com.github.chrisbanes:PhotoView:2.0.0")
+
 
 }
 

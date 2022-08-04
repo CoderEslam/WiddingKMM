@@ -11,6 +11,9 @@ import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.ViewModel.ChatListViewModel
 import com.doubleclick.widdings.Adapters.ChatListAdapter
 import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToList
+import persondata.ChatListQueries
 import persondata.MessagesEntityQueries
 import persondata.UserEntityQueries
 
@@ -19,19 +22,11 @@ class ChatListActivity : AppCompatActivity() {
     private lateinit var chatlist: RecyclerView
     private lateinit var chatListAdapter: ChatListAdapter;
     private lateinit var chatListViewModel: ChatListViewModel;
-    private lateinit var androidSqlDriver: AndroidSqliteDriver
-    private lateinit var queries: UserEntityQueries;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_list)
         chatlist = findViewById(R.id.chatlist);
-        androidSqlDriver = AndroidSqliteDriver(
-            schema = MessageDatabase.Schema,
-            context = this@ChatListActivity,
-            name = "user.db"
-        )
-        queries = MessageDatabase(androidSqlDriver).userEntityQueries
         try {
             val objectChatShare =
                 intent.getSerializableExtra("objectChatShare") as MessageModel
@@ -52,18 +47,9 @@ class ChatListActivity : AppCompatActivity() {
 
 
         chatListViewModel.getUserAdd().observe(this) {
-            queries.insertUserById(
-                it.id,
-                it.name,
-                it.phone,
-                it.email,
-                it.token,
-                it.image,
-                it.description,
-                it.cover
-            )
 
-            Log.e("USERDATA", queries.getAllUsers().executeAsList().toString());
+
+
         }
     }
 }
