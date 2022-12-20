@@ -93,10 +93,10 @@ class ProfileActivity : AppCompatActivity() {
                 })
         }
 
-        postsViewModel.getLiveMyPosts(FirebaseAuth.getInstance().currentUser!!.uid.toString())
-            .observe(this) {
-                myPosts.adapter = PostsAdapter(this, it);
-            }
+//        postsViewModel.getLiveMyPosts(FirebaseAuth.getInstance().currentUser!!.uid.toString())
+//            .observe(this) {
+//                myPosts.adapter = PostsAdapter(this, it);
+//            }
 
 
         create_post.setOnClickListener {

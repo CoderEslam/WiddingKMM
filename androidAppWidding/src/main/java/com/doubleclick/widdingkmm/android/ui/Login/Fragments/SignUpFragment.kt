@@ -12,9 +12,10 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.navigation.Navigation
-import com.doubleclick.widdingkmm.android.MainActivity
+import com.doubleclick.widdingkmm.android.HomeActivity
 import com.doubleclick.widdingkmm.android.Model.Constants
 import com.doubleclick.widdingkmm.android.R
+import com.doubleclick.widdingkmm.android.utils.isNetworkConnected
 
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
@@ -78,7 +79,7 @@ class SignUpFragment : Fragment() {
     }
 
     private fun SignUp(email: String, password: String, username: String) {
-        if (notEmpity(email, password, username) && isNetworkConnected()) {
+        if (notEmpity(email, password, username) && isNetworkConnected(requireActivity())) {
             progressBar.visibility = View.VISIBLE
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -96,7 +97,7 @@ class SignUpFragment : Fragment() {
                             map["token"] = task.result.toString()
                             map["id"] = id
                             reference.child(Constants.DBUsers).child(id).updateChildren(map)
-                            startActivity(Intent(requireActivity(), MainActivity::class.java))
+                            startActivity(Intent(requireActivity(), HomeActivity::class.java))
                             progressBar.visibility = View.GONE
                         }
                     }
@@ -107,13 +108,6 @@ class SignUpFragment : Fragment() {
 
     private fun notEmpity(email: String, password: String, username: String): Boolean {
         return email != "" && password != "" && username != ""
-    }
-
-    fun isNetworkConnected(): Boolean {
-        val connectivityManager =
-            requireActivity().getSystemService(Application.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!
-            .isConnected
     }
 
 

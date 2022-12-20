@@ -131,7 +131,6 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
                 messageModelsList.addAll(itemsBefore)
 
             }
-
         }
 //        messageModelsList.addAll(chatListViewModelDatabase.getListData(myId, userId));
         audioRecordView.setRecordingListener(this)

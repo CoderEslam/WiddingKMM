@@ -66,7 +66,6 @@ class PostsAdapter(
                     holder.adapterPosition,
                     holder.reactions
                 )
-
             true;
         }
         holder.likeButton.setOnClickListener {

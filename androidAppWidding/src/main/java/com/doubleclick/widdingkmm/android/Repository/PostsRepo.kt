@@ -14,15 +14,10 @@ import com.google.gson.Gson
 /**
  * Created By Eslam Ghazy on 7/14/2022
  */
-class PostsRepo : BaseRepository {
+class PostsRepo(private var iPosts: IPosts) : BaseRepository() {
 
-    private var iPosts: IPosts
     private val list: MutableList<PostModelData> = ArrayList();
     private val listMyPost: MutableList<PostModelData> = ArrayList();
-
-    constructor(iPosts: IPosts) : super() {
-        this.iPosts = iPosts
-    }
 
     fun getPost() {
         reference.child(Constants.DBPosts)

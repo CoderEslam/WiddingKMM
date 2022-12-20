@@ -13,48 +13,52 @@ import com.google.gson.Gson
 /**
  * Created By Eslam Ghazy on 7/8/2022
  */
-class UserRepository : BaseRepository {
+private const val TAG = "UserRepository"
 
-    public lateinit var userinter: userinterface
-
-    constructor(userinter: userinterface) : super() {
-        this.userinter = userinter
-    }
+class UserRepository(var userinter: userinterface) : BaseRepository() {
 
     fun getUserDate() {
-        reference.child(Constants.DBUsers)
-            .child(id)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val gson = Gson()
-                        val json = Gson().toJson(snapshot.value)
-                        val data = gson.fromJson(json, User::class.java)
-                        userinter.let {
-                            if (data != null) {
-                                it.userData(
-                                    User(
-                                        data.id,
-                                        data.name,
-                                        data.phone,
-                                        data.email,
-                                        data.token,
-                                        data.image,
-                                        data.description,
-                                        data.cover
-                                    )
-                                )
+        try {
+            if (id != "") {
+                reference.child(Constants.DBUsers)
+                    .child(id)
+                    .addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if (snapshot.exists()) {
+                                val gson = Gson()
+                                val json = Gson().toJson(snapshot.value)
+                                val data = gson.fromJson(json, User::class.java)
+                                userinter.let {
+                                    if (data != null) {
+                                        it.userData(
+                                            User(
+                                                data.id,
+                                                data.name,
+                                                data.phone,
+                                                data.email,
+                                                data.token,
+                                                data.image,
+                                                data.description,
+                                                data.cover
+                                            )
+                                        )
+                                    }
+                                }
                             }
+
                         }
-                    }
 
-                }
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
+                    })
+            }
 
-            })
+        } catch (e: NullPointerException) {
+            Log.e(TAG, "getUserDate: ${e.message}")
+        }
+
     }
 
     fun getInfoUserById(id: String?) {

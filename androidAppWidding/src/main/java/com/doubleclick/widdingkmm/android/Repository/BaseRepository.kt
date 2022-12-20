@@ -11,7 +11,7 @@ import com.google.firebase.database.FirebaseDatabase
 open class BaseRepository {
 
     var reference: DatabaseReference = FirebaseDatabase.getInstance().reference
-    var id: String = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+    var id: String = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
 
 }

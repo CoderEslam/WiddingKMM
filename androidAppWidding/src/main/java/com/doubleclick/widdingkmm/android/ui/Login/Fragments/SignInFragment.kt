@@ -13,8 +13,10 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.navigation.Navigation
-import com.doubleclick.widdingkmm.android.MainActivity
+import com.doubleclick.widdingkmm.android.HomeActivity
 import com.doubleclick.widdingkmm.android.R
+import com.doubleclick.widdingkmm.android.Views.fabfilter.main.MainActivity
+import com.doubleclick.widdingkmm.android.utils.isNetworkConnected
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_sign_in.*
@@ -72,12 +74,12 @@ class SignInFragment : Fragment() {
     }
 
     private fun signIn(email: String, password: String) {
-        if (notEmpty(email, password) && isNetworkConnected()) {
+        if (notEmpty(email, password) && isNetworkConnected(requireActivity())) {
             progressBar.visibility = View.VISIBLE
             Log.e("EMIAL", email + " " + password);
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    startActivity(Intent(requireActivity(), MainActivity::class.java))
+                    startActivity(Intent(requireActivity(), HomeActivity::class.java))
                     progressBar.visibility = View.GONE
                 }
             }
@@ -88,11 +90,5 @@ class SignInFragment : Fragment() {
         return email != "" && password != "";
     }
 
-    fun isNetworkConnected(): Boolean {
-        val connectivityManager =
-            requireActivity().getSystemService(Application.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!
-            .isConnected
-    }
 
 }

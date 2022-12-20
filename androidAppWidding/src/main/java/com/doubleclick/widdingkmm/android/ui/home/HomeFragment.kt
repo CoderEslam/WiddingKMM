@@ -34,13 +34,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var mainRecycler: RecyclerView
     private lateinit var postsViewModel: PostsViewModel;
-    private var advertisements: ArrayList<SlideModel> = ArrayList();
-    private var navModel: ArrayList<NavModel> = ArrayList();
-    private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,47 +52,8 @@ class HomeFragment : Fragment() {
 
         postsViewModel.getLiveListData().observe(viewLifecycleOwner) {
             mainRecycler.adapter = PostsAdapter(requireActivity(), it);
-            Log.e("POSTDATAMODEL", it.toString());
         }
 
-
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-        advertisements.add(SlideModel(R.drawable.download, ScaleTypes.CENTER_INSIDE))
-
-
-        /*
-        * for Nav Side
-        * */
-        navModel.add(NavModel(resources.getString(R.string.Ateliers), R.drawable.atelier, 0))
-        navModel.add(
-            NavModel(
-                resources.getString(R.string.MakeupArtist),
-                R.drawable.makup_artist,
-                0
-            )
-        )
-        navModel.add(
-            NavModel(
-                resources.getString(R.string.WedddingHells),
-                R.drawable.weddinghell,
-                0
-            )
-        )
-        navModel.add(
-            NavModel(
-                resources.getString(R.string.weddingPlanner),
-                R.drawable.wedding_planner,
-                0
-            )
-        )
-        //==========================================================================================
 
 
     }
