@@ -41,6 +41,7 @@ import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
 import kotlinx.android.synthetic.main.app_bar_home.*
+import kotlinx.android.synthetic.main.main_recycler.*
 import kotlinx.android.synthetic.main.nav_header_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
 
@@ -126,8 +127,7 @@ class HomeActivity : AppCompatActivity() {
         list.add(User("", "5y35y", "", "", "", "", "", ""))
         list.add(User("", "w53y523y5", "", "", "", "", "", ""))
 
-        rv_nav_side.layoutManager = LinearLayoutManager(this)
-        rv_nav_side.adapter = mainListAdapter;
+        mainRecycler.adapter = mainListAdapter;
         val navController = findNavController(R.id.nav_host_fragment_content_home)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -177,7 +177,7 @@ class HomeActivity : AppCompatActivity() {
     /**
      * Update RecyclerView Item Animation Durations
      */
-    private fun updateRecyclerViewAnimDuration() = rv_nav_side.itemAnimator?.run {
+    private fun updateRecyclerViewAnimDuration() = mainRecycler.itemAnimator?.apply {
         removeDuration = loadingDuration * 60 / 100
         addDuration = loadingDuration
     }

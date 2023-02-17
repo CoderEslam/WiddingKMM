@@ -3,8 +3,7 @@ FrameLayout is used as top level layout because when the CardView is getting
 animated, it needs to stay centered. Otherwise we need to animate x and y values
 too. layout_gravity="center_horizontal" is a lot simpler.
 -->
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
@@ -55,15 +54,17 @@ too. layout_gravity="center_horizontal" is a lot simpler.
                     app:srcCompat="@drawable/ic_chevron_right"
                     app:tint="@color/title_color" />
 
-                <View
+                <TextView
                     android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginEnd="16dp"
+                    android:padding="2dp"
                     android:layout_toEndOf="@id/chevron"
                     android:background="@drawable/ic_pill"
-                    android:backgroundTint="@color/title_color" />
+                    android:backgroundTint="@color/title_color"
+                    android:text="Some data" />
 
                 <View
                     android:id="@+id/subtitle1"

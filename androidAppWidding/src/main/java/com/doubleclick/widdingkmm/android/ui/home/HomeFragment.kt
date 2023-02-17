@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         postsViewModel = ViewModelProvider(this)[PostsViewModel::class.java];
 
         postsViewModel.getLiveListData().observe(viewLifecycleOwner) {
-            mainRecycler.adapter = PostsAdapter(requireActivity(), it);
+//            mainRecycler.adapter = PostsAdapter(requireActivity(), it);
         }
 
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.TextView
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.view.doOnLayout
@@ -36,7 +37,9 @@ class MainListAdapter(context: Context) : RecyclerView.Adapter<MainListAdapter.L
 
     // filteredItems is a static field to simulate filtering of random items
     private val filteredItems = intArrayOf(2, 5, 6, 8, 12)
-    private val modelList = List(20) { MainListModel(it) }
+    private val modelList = List(20) {
+        MainListModel(it)
+    }
     private val modelListFiltered = modelList.filter { it.id !in filteredItems }
     private val adapterList: List<MainListModel> get() = if (isFiltered) modelListFiltered else modelList
 
@@ -52,7 +55,6 @@ class MainListAdapter(context: Context) : RecyclerView.Adapter<MainListAdapter.L
         }
 
     private val listItemExpandDuration: Long get() = (300L / animationPlaybackSpeed).toLong()
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     private lateinit var recyclerView: RecyclerView
     private var expandedModel: MainListModel? = null
@@ -65,7 +67,9 @@ class MainListAdapter(context: Context) : RecyclerView.Adapter<MainListAdapter.L
     override fun getItemCount(): Int = adapterList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder =
-        ListViewHolder(inflater.inflate(R.layout.item_list, parent, false))
+        ListViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
+        )
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
@@ -74,7 +78,7 @@ class MainListAdapter(context: Context) : RecyclerView.Adapter<MainListAdapter.L
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val model = adapterList[position]
-
+        holder.title.setText("Some data $position")
         expandItem(holder, model == expandedModel, animate = false)
         scaleDownItem(holder, position, isScaledDown)
 
@@ -164,7 +168,7 @@ class MainListAdapter(context: Context) : RecyclerView.Adapter<MainListAdapter.L
     ///////////////////////////////////////////////////////////////////////////
 
     private inline val LinearLayoutManager.visibleItemsRange: IntRange
-        get() = findFirstVisibleItemPosition()..findLastVisibleItemPosition()
+        get() = findFirstVisibleItemPosition()..findLastVisibleItemPosition() // return range
 
     fun getScaleDownAnimator(isScaledDown: Boolean): ValueAnimator {
         val lm = recyclerView.layoutManager as LinearLayoutManager
@@ -229,10 +233,10 @@ class MainListAdapter(context: Context) : RecyclerView.Adapter<MainListAdapter.L
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val expandView: View = itemView.findViewById(R.id.expand_view)
-
         val chevron: View = itemView.findViewById(R.id.chevron)
         val cardContainer: View = itemView.findViewById(R.id.card_container)
         val scaleContainer: View = itemView.findViewById(R.id.scale_container)
         val listItemFg: View = itemView.findViewById(R.id.list_item_fg)
+        val title: TextView = itemView.findViewById(R.id.title)
     }
 }
