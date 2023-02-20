@@ -6,10 +6,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.doubleclick.databasekmm.android.MessageDatabase
+import com.doubleclick.widdingkmm.android.Adapters.ChatListAdapter
 import com.doubleclick.widdingkmm.android.Model.MessageModel
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.ViewModel.ChatListViewModel
-import com.doubleclick.widdings.Adapters.ChatListAdapter
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList

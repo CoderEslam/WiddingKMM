@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,29 +20,23 @@ import androidx.core.content.edit
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
-import com.doubleclick.widdingkmm.android.Model.User
+import com.doubleclick.widdingkmm.android.Model.NavModel
 import com.doubleclick.widdingkmm.android.ViewModel.UserViewModel
 import com.doubleclick.widdingkmm.android.Views.CircleImageView
 import com.doubleclick.widdingkmm.android.Views.fabfilter.filter.FiltersLayout
 import com.doubleclick.widdingkmm.android.Views.fabfilter.filter.FiltersMotionLayout
-import com.doubleclick.widdingkmm.android.Views.fabfilter.main.MainActivity
 import com.doubleclick.widdingkmm.android.Views.fabfilter.main.MainListAdapter
 import com.doubleclick.widdingkmm.android.Views.fabfilter.main.animationPlaybackSpeed
-import com.doubleclick.widdingkmm.android.ui.Chat.ChatListActivity
 import com.doubleclick.widdingkmm.android.ui.Profile.ProfileActivity
-import com.doubleclick.widdings.Adapters.ChatListAdapter
+import com.doubleclick.widdingkmm.android.Adapters.NavParentAdapter
 import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
-import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.main_recycler.*
-import kotlinx.android.synthetic.main.nav_header_home.*
-import kotlinx.android.synthetic.main.nav_header_home.view.*
 
 var options = Options();
 
@@ -100,34 +93,18 @@ class HomeActivity : AppCompatActivity() {
         mainListAdapter = MainListAdapter(this)
         setSupportActionBar(toolbar)
         // Init FilterLayout
-        useFiltersMotionLayout(false)
-        updateRecyclerViewAnimDuration()
+//        useFiltersMotionLayout(false)
+//        updateRecyclerViewAnimDuration()
 
         userViewModel.getUserDate().observe(this) {
             Glide.with(this).load(it.image).into(myImage);
         }
-        var list: MutableList<User> = ArrayList()
-        list.add(User("", "fdhjfg", "", "", "", "", "", ""))
-        list.add(User("", "dhnsdgh", "", "", "", "", "", ""))
-        list.add(User("", "sejtewe", "", "", "", "", "", ""))
-        list.add(User("", "dzbfsdfh", "", "", "", "", "", ""))
-        list.add(User("", "sehrtwety", "", "", "", "", "", ""))
-        list.add(User("", "sehttt", "", "", "", "", "", ""))
-        list.add(User("", "eww4", "", "", "", "", "", ""))
-        list.add(User("", "rejrtjhr", "", "", "", "", "", ""))
-        list.add(User("", "we5uuyew5y", "", "", "", "", "", ""))
-        list.add(User("", "w45wu4y", "", "", "", "", "", ""))
-        list.add(User("", "wttyw4ty", "", "", "", "", "", ""))
-        list.add(User("", "w54y45y", "", "", "", "", "", ""))
-        list.add(User("", "w5y4y", "", "", "", "", "", ""))
-        list.add(User("", "w3y535y", "", "", "", "", "", ""))
-        list.add(User("", "wy35w53y", "", "", "", "", "", ""))
-        list.add(User("", "5y523y", "", "", "", "", "", ""))
-        list.add(User("", "35y3y", "", "", "", "", "", ""))
-        list.add(User("", "5y35y", "", "", "", "", "", ""))
-        list.add(User("", "w53y523y5", "", "", "", "", "", ""))
-
-        mainRecycler.adapter = mainListAdapter;
+        var list: MutableList<NavModel> = ArrayList()
+        list.add(NavModel("Makeup artist", "fdhjfg", 1))
+        list.add(NavModel("widding planner", "dhnsdgh", 2))
+        list.add(NavModel("widding hells", "sejtewe", 3))
+        rv_nav_side.adapter = NavParentAdapter(list as ArrayList<NavModel>)
+//        mainRecycler.adapter = mainListAdapter;
         val navController = findNavController(R.id.nav_host_fragment_content_home)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

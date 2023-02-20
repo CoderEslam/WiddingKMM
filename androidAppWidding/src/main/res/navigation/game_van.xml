@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_van"
+    app:startDestination="@id/question1Fragment">
+
+    <fragment
+        android:id="@+id/question1Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question1Fragment"
+        android:label="fragment_question1"
+        tools:layout="@layout/fragment_question1">
+        <action
+            android:id="@+id/action_question1Fragment_to_question2Fragment"
+            app:destination="@id/question2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question2Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question2Fragment"
+        android:label="fragment_question2"
+        tools:layout="@layout/fragment_question2">
+        <action
+            android:id="@+id/action_question2Fragment_to_question3Fragment"
+            app:destination="@id/question3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question3Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question3Fragment"
+        android:label="fragment_question3"
+        tools:layout="@layout/fragment_question3">
+        <action
+            android:id="@+id/action_question3Fragment_to_question4Fragment"
+            app:destination="@id/question4Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question4Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question4Fragment"
+        android:label="fragment_question4"
+        tools:layout="@layout/fragment_question4">
+        <action
+            android:id="@+id/action_question4Fragment_to_question5Fragment"
+            app:destination="@id/question5Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question5Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question5Fragment"
+        android:label="fragment_question5"
+        tools:layout="@layout/fragment_question5">
+        <action
+            android:id="@+id/action_question5Fragment_to_question6Fragment"
+            app:destination="@id/question6Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question6Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question6Fragment"
+        android:label="fragment_question6"
+        tools:layout="@layout/fragment_question6">
+        <action
+            android:id="@+id/action_question6Fragment_to_question7Fragment"
+            app:destination="@id/question7Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question7Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question7Fragment"
+        android:label="fragment_question7"
+        tools:layout="@layout/fragment_question7">
+        <action
+            android:id="@+id/action_question7Fragment_to_question8Fragment"
+            app:destination="@id/question8Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question8Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question8Fragment"
+        android:label="fragment_question8"
+        tools:layout="@layout/fragment_question8">
+        <action
+            android:id="@+id/action_question8Fragment_to_question9Fragment"
+            app:destination="@id/question9Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question9Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question9Fragment"
+        android:label="fragment_question9"
+        tools:layout="@layout/fragment_question9">
+        <action
+            android:id="@+id/action_question9Fragment_to_question10Fragment"
+            app:destination="@id/question10Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/question10Fragment"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.Question10Fragment"
+        android:label="fragment_question10"
+        tools:layout="@layout/fragment_question10" />
+    <fragment
+        android:id="@+id/splashFragmentGame"
+        android:name="com.doubleclick.widdingkmm.android.Game.Fragment.SplashFragmentGame"
+        android:label="fragment_splash_game"
+        tools:layout="@layout/fragment_splash_game" >
+        <action
+            android:id="@+id/action_splashFragmentGame_to_question1Fragment"
+            app:destination="@id/question1Fragment" />
+    </fragment>
+</navigation>

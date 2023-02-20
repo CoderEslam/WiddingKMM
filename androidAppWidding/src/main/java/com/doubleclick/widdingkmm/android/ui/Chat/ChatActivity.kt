@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.L
 import com.bumptech.glide.Glide
 import com.doubleclick.databasekmm.android.MessageDatabase
+import com.doubleclick.widdingkmm.android.Adapters.BaseMessageAdapter
 import com.doubleclick.widdingkmm.android.Model.*
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.ViewModel.UserViewModel
@@ -38,7 +39,6 @@ import com.doubleclick.widdingkmm.android.Views.audio_record_view.AudioRecordVie
 import com.doubleclick.widdingkmm.android.Views.audio_record_view.RecordingListener
 import com.doubleclick.widdingkmm.android.`interface`.APIService
 import com.doubleclick.widdingkmm.android.`interface`.OnMessageClick
-import com.doubleclick.widdings.Adapters.BaseMessageAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
@@ -145,7 +145,6 @@ class ChatActivity : AppCompatActivity(), AttachmentOptionsListener, RecordingLi
             user = it;
             Glide.with(this).load(it.image).into(profile_image);
             username.text = it.name
-            Log.e("GGGGGGGGGG", it.toString())
         }
 //        chatListViewModelDatabase.getAllData().observe(this@ChatActivity) {
 //            Log.e("CHATDATA", it.toString());

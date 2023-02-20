@@ -5,11 +5,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.doubleclick.widdingkmm.android.Adapters.ImagesAdapter
 import com.doubleclick.widdingkmm.android.Model.MessageModel
 import com.doubleclick.widdingkmm.android.R
 import com.doubleclick.widdingkmm.android.Views.socialtextview.SocialTextView
 import com.doubleclick.widdingkmm.android.`interface`.OnMessageClick
-import com.doubleclick.widdings.Adapters.ImagesAdapter
 import java.text.SimpleDateFormat
 
 /**

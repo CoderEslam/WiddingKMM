@@ -1,4 +1,4 @@
-package com.doubleclick.widdings.Adapters
+package com.doubleclick.widdingkmm.android.Adapters
 
 import android.app.Activity
 import android.content.Intent
@@ -57,7 +57,6 @@ class PostsAdapter(
         holder.name.text = postModelData[position].user.name
         holder.caption.setLinkText(postModelData[position].postModel.caption)
         holder.likeButton.setOnLongClickListener {
-
             holder.reactions.visibility = View.VISIBLE
             holder.reactions.adapter =
                 ReactionAdapter(

@@ -6,6 +6,6 @@ package com.doubleclick.widdingkmm.android.Model
  */
 data class NavModel(
     val name: String,
-    val image: Int,
+    val image: String,
     val id: Int
 )

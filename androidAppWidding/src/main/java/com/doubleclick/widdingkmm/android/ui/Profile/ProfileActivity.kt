@@ -25,7 +25,6 @@ import com.doubleclick.widdingkmm.android.Repository.BaseRepository
 import com.doubleclick.widdingkmm.android.ViewModel.PostsViewModel
 import com.doubleclick.widdingkmm.android.ViewModel.UserViewModel
 import com.doubleclick.widdingkmm.android.Views.CircleImageView
-import com.doubleclick.widdings.Adapters.PostsAdapter
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.auth.FirebaseAuth

@@ -1,4 +1,4 @@
-package com.doubleclick.widdings.Adapters
+package com.doubleclick.widdingkmm.android.Adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
