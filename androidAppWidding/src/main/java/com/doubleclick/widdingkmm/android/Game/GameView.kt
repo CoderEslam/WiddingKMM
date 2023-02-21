@@ -52,7 +52,7 @@ class GameView(
         playerPaint = Paint()
         playerPaint.color = Color.RED
         exitPaint = Paint()
-        exitPaint.color = Color.BLUE
+        exitPaint.color = resources.getColor(R.color.colorless);
         createMaze()
     }
 

@@ -49,6 +49,8 @@ class Question3Fragment : Fragment() {
                 delay(1000)
                 binding.linearLayoutChoose.visibility = View.GONE
                 binding.maze.root.visibility = View.VISIBLE
+                binding.question.setText("Vamos a conseguir lo que has elegido")
+                binding.maze.circleImageSelected.setImageDrawable(binding.imageSelect1.drawable)
             }
         }
 
@@ -60,6 +62,9 @@ class Question3Fragment : Fragment() {
                 delay(1000)
                 binding.linearLayoutChoose.visibility = View.GONE
                 binding.maze.root.visibility = View.VISIBLE
+                binding.question.setText("Vamos a conseguir lo que has elegido")
+                binding.maze.circleImageSelected.setImageDrawable(binding.imageSelect2.drawable)
+
             }
         }
 
