@@ -7,8 +7,8 @@
     </style>
 
     <style name="styleCard">
-        <item name="cardBackgroundColor">@color/babykshmir</item>
-        <item name="background">@color/babykshmir</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="background">@color/white</item>
     </style>
 
     <style name="textStyle">

@@ -10,7 +10,14 @@
         android:theme="@style/AppTheme"
         tools:targetApi="s">
         <activity
-            android:name=".GameActivity"
+            android:name=".Game.Fragment.GameFinishedActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Game.Fragment.GameActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

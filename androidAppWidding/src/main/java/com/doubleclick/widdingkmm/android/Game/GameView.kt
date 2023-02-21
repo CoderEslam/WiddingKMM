@@ -9,13 +9,20 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Picture
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import com.doubleclick.widdingkmm.android.R
+import com.doubleclick.widdingkmm.android.`interface`.setOnGame
 import java.security.SecureRandom
 import java.util.*
+import kotlin.math.log
 
-class GameView(context: Context?, attrs: AttributeSet?) :
+class GameView(
+    context: Context?,
+    attrs: AttributeSet?/*, var COLUMNS: Int = 5, var ROWS: Int = 5*/
+) :
     View(context, attrs) {
     private var COLUMNS = 5
     private var ROWS = 5
@@ -28,16 +35,19 @@ class GameView(context: Context?, attrs: AttributeSet?) :
     private val wallPaint: Paint
     private val playerPaint: Paint
     private val exitPaint: Paint
+    private val TAG = "GameView"
+    private lateinit var setOnGame: setOnGame
 
     private enum class Direction {
         UP, DOWN, LEFT, RIGHT
     }
 
+
     private val random = SecureRandom()
 
     init {
         wallPaint = Paint()
-        wallPaint.color = Color.BLACK
+        wallPaint.color = resources.getColor(R.color.wells);
         wallPaint.strokeWidth = WALL_THICKNESS
         playerPaint = Paint()
         playerPaint.color = Color.RED
@@ -120,75 +130,82 @@ class GameView(context: Context?, attrs: AttributeSet?) :
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.drawColor(resources.getColor(R.color.kashmirdark))
+        canvas.drawColor(resources.getColor(R.color.white))
         val width = width
         val height = height
-        cellSize = if (width / height < COLUMNS / ROWS) (width / (COLUMNS + 1)).toFloat() else (height / (ROWS + 1)).toFloat()
+        cellSize =
+            if (width / height < COLUMNS / ROWS) (width / (COLUMNS + 1)).toFloat() else (height / (ROWS + 1)).toFloat()
 
         hMargin = (width - COLUMNS * cellSize) / 2
         vMargin = (height - ROWS * cellSize) / 2
         canvas.translate(hMargin, vMargin)
-        for (x in 0 until COLUMNS) {
-            for (y in 0 until ROWS) {
-                if (cells[x][y]!!.topWall) {
-                    canvas.drawLine(
-                        x * cellSize,
-                        y * cellSize,
-                        (x + 1) * cellSize,
-                        y * cellSize,
-                        wallPaint
-                    )
-                }
-                if (cells[x][y]!!.leftWall) {
-                    canvas.drawLine(
-                        x * cellSize,
-                        y * cellSize,
-                        x * cellSize,
-                        (y + 1) * cellSize,
-                        wallPaint
-                    )
-                }
-                if (cells[x][y]!!.bottomWall) {
-                    canvas.drawLine(
-                        x * cellSize,
-                        (y + 1) * cellSize,
-                        (x + 1) * cellSize,
-                        (y + 1) * cellSize,
-                        wallPaint
-                    )
-                }
-                if (cells[x][y]!!.rightWall) {
-                    canvas.drawLine(
-                        (x + 1) * cellSize,
-                        y * cellSize,
-                        (x + 1) * cellSize,
-                        (y + 1) * cellSize,
-                        wallPaint
-                    )
+        try {
+            for (x in 0 until COLUMNS) {
+                for (y in 0 until ROWS) {
+                    if (cells[x][y]!!.topWall) {
+                        canvas.drawLine(
+                            x * cellSize,
+                            y * cellSize,
+                            (x + 1) * cellSize,
+                            y * cellSize,
+                            wallPaint
+                        )
+                    }
+                    if (cells[x][y]!!.leftWall) {
+                        canvas.drawLine(
+                            x * cellSize,
+                            y * cellSize,
+                            x * cellSize,
+                            (y + 1) * cellSize,
+                            wallPaint
+                        )
+                    }
+                    if (cells[x][y]!!.bottomWall) {
+                        canvas.drawLine(
+                            x * cellSize,
+                            (y + 1) * cellSize,
+                            (x + 1) * cellSize,
+                            (y + 1) * cellSize,
+                            wallPaint
+                        )
+                    }
+                    if (cells[x][y]!!.rightWall) {
+                        canvas.drawLine(
+                            (x + 1) * cellSize,
+                            y * cellSize,
+                            (x + 1) * cellSize,
+                            (y + 1) * cellSize,
+                            wallPaint
+                        )
+                    }
                 }
             }
+            val margin = cellSize / 10
+            canvas.drawRect(
+                player!!.column * cellSize + margin,
+                player!!.row * cellSize + margin,
+                (player!!.column + 1) * cellSize - margin,
+                (player!!.row + 1) * cellSize - margin,
+                playerPaint
+            )
+            canvas.drawRect(
+                exit!!.column * cellSize + margin,
+                exit!!.row * cellSize + margin,
+                (exit!!.column + 1) * cellSize - margin,
+                (exit!!.row + 1) * cellSize - margin,
+                exitPaint
+            )
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            Log.e(TAG, "onDraw: ${e.message}")
         }
-        val margin = cellSize / 10
-        canvas.drawRect(
-            player!!.column * cellSize + margin,
-            player!!.row * cellSize + margin,
-            (player!!.column + 1) * cellSize - margin,
-            (player!!.row + 1) * cellSize - margin,
-            playerPaint
-        )
-        canvas.drawRect(
-            exit!!.column * cellSize + margin,
-            exit!!.row * cellSize + margin,
-            (exit!!.column + 1) * cellSize - margin,
-            (exit!!.row + 1) * cellSize - margin,
-            exitPaint
-        )
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) return true
         if (event.action == MotionEvent.ACTION_MOVE) {
+            Log.e(TAG, "onTouchEvent: ${event.action}")
             val x = event.x
             val y = event.y
             val playerCenterX = hMargin + (player!!.column + 0.5f) * cellSize
@@ -229,6 +246,7 @@ class GameView(context: Context?, attrs: AttributeSet?) :
         if (player === exit) {
             COLUMNS++
             ROWS++
+            setOnGame.setOnClickGame(COLUMNS + 1)
             createMaze()
         }
     }
@@ -244,4 +262,14 @@ class GameView(context: Context?, attrs: AttributeSet?) :
     companion object {
         private const val WALL_THICKNESS = 4f
     }
+
+    fun onItemGameChange(onGame: setOnGame) {
+        setOnGame = onGame
+    }
+
+    fun setVerticx(p: Int) {
+//        COLUMNS++;
+//        ROWS++
+    }
+
 }

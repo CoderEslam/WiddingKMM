@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.doubleclick.widdingkmm.android.CommentActivity
+import com.doubleclick.widdingkmm.android.Game.Fragment.GameActivity
 import com.doubleclick.widdingkmm.android.HashtagsActivity
 import com.doubleclick.widdingkmm.android.Model.FbReactions.Reactions
 import com.doubleclick.widdingkmm.android.Model.PostModelData
@@ -57,33 +58,30 @@ class PostsAdapter(
         holder.name.text = postModelData[position].user.name
         holder.caption.setLinkText(postModelData[position].postModel.caption)
         holder.likeButton.setOnLongClickListener {
-            holder.reactions.visibility = View.VISIBLE
-            holder.reactions.adapter =
-                ReactionAdapter(
-                    Reactions(),
-                    this@PostsAdapter,
-                    holder.adapterPosition,
-                    holder.reactions
-                )
+//            holder.reactions.visibility = View.VISIBLE
+//            holder.reactions.adapter =
+//                ReactionAdapter(
+//                    Reactions(),
+//                    this@PostsAdapter,
+//                    holder.adapterPosition,
+//                    holder.reactions
+//                )
             true;
-        }
-        holder.likeButton.setOnClickListener {
-
         }
         holder.comment.setOnClickListener {
             val intent = Intent(holder.itemView.context, CommentActivity::class.java)
             holder.itemView.context.startActivity(intent)
         }
         holder.share.setOnClickListener {
-            val intent = Intent(holder.itemView.context, ChatActivity::class.java);
-            intent.putExtra("userId", postModelData[position].postModel.userId);
-            intent.putExtra("postData", postModelData[position])
-            holder.itemView.context.startActivity(intent)
+//            val intent = Intent(holder.itemView.context, ChatActivity::class.java);
+//            intent.putExtra("userId", postModelData[position].postModel.userId);
+//            intent.putExtra("postData", postModelData[position])
+//            holder.itemView.context.startActivity(intent)
         }
         holder.chatLayout.setOnClickListener {
-            val intent = Intent(holder.itemView.context, ChatActivity::class.java)
-            intent.putExtra("userId", postModelData[position].user.id);
-            holder.itemView.context.startActivity(intent)
+//            val intent = Intent(holder.itemView.context, ChatActivity::class.java)
+//            intent.putExtra("userId", postModelData[position].user.id);
+//            holder.itemView.context.startActivity(intent)
         }
 
         holder.caption.setOnLinkClickListener(object : SocialTextView.OnLinkClickListener {
@@ -106,44 +104,5 @@ class PostsAdapter(
         Log.e("reaction", reaction.toString());
         recyclerView.visibility = View.GONE
     }
-
-    /* private fun showLayout() {
-         val radius = Math.max(continer_attacht.width, continer_attacht.height).toFloat()
-         val animator =
-             ViewAnimationUtils.createCircularReveal(
-                 continer_attacht,
-                 continer_attacht.left,
-                 continer_attacht.top,
-                 0f,
-                 radius * 2
-             )
-         animator.duration = 500
-         continer_attacht.visibility = View.VISIBLE
-         animator.start()
-     }
-
-
-     private fun hideLayout() {
-         val radius = Math.max(continer_attacht.width, continer_attacht.height).toFloat()
-         val animator =
-             ViewAnimationUtils.createCircularReveal(
-                 continer_attacht,
-                 continer_attacht.left,
-                 continer_attacht.top,
-                 radius * 2,
-                 0f
-             )
-         animator.duration = 500
-         animator.addListener(object : Animator.AnimatorListener {
-             override fun onAnimationStart(animation: Animator) {}
-             override fun onAnimationEnd(animation: Animator) {
-                 continer_attacht.visibility = View.GONE
-             }
-
-             override fun onAnimationCancel(animation: Animator) {}
-             override fun onAnimationRepeat(animation: Animator) {}
-         })
-         animator.start()
-     }*/
 
 }

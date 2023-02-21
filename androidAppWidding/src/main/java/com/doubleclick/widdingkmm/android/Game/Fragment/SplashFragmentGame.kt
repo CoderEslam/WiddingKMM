@@ -35,7 +35,7 @@ class SplashFragmentGame : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch(Dispatchers.Main) {
-            delay(2000)
+            delay(1000)
             findNavController().navigate(SplashFragmentGameDirections.actionSplashFragmentGameToQuestion1Fragment())
         }
     }
