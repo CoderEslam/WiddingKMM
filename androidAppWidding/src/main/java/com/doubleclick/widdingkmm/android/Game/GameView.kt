@@ -24,8 +24,8 @@ class GameView(
     attrs: AttributeSet?/*, var COLUMNS: Int = 5, var ROWS: Int = 5*/
 ) :
     View(context, attrs) {
-    private var COLUMNS = 5
-    private var ROWS = 5
+    private var COLUMNS = 7
+    private var ROWS = 7
     private lateinit var cells: Array<Array<Cell?>>
     private var player: Cell? = null
     private var exit: Cell? = null
